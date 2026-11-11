@@ -6,9 +6,9 @@
 
 export const SITE = {
   /** رقم الاتصال والواتساب */
-  phoneDisplay: "01206757616⁩",
-  phoneIntl: "+201206757616⁩",
-  whatsapp: "201206757616⁩",
+  phoneDisplay: "01206757616",
+  phoneIntl: "+201206757616",
+  whatsapp: "201206757616",
 
   /**
    * Web3Forms
