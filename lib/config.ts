@@ -6,9 +6,9 @@
 
 export const SITE = {
   /** رقم الاتصال والواتساب */
-  phoneDisplay: "01200399994",
-  phoneIntl: "+201200399994",
-  whatsapp: "201200399994",
+  phoneDisplay: "01206757616⁩",
+  phoneIntl: "+201206757616⁩",
+  whatsapp: "201206757616⁩",
 
   /**
    * Web3Forms
@@ -18,10 +18,10 @@ export const SITE = {
    * لحد ما تحط المفتاح: الفورم بيحوّل العميل على واتساب ببياناته عشان مفيش ليد يضيع.
    */
   web3formsKey:
-    process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY",
+    process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "9761f756-c0d5-426c-bb31-85068658a3a5",
 
   /** الدومين النهائي (للـ SEO و OpenGraph) */
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://mountainviewpropertie.com",
 
   /** اسم الجهة المسوّقة — بيظهر في الإفصاح أسفل الصفحة وسياسة الخصوصية */
   agentName: "وكيل مبيعات معتمد لمشروعات ماونتن فيو",
