@@ -57,7 +57,7 @@ export const PRICING = {
   years: 8,
 };
 
-export type UnitKey = "penthouse" | "ivilla" | "villa";
+export type UnitKey = "townhouse" | "penthouse" | "ivilla" | "villa";
 
 export const UNITS: {
   key: UnitKey;
@@ -70,14 +70,14 @@ export const UNITS: {
   points: string[];
 }[] = [
   {
-    key: "Townhouse",
+    key: "townhouse",
     name: "تاون هاوس",
     en: "Townhouse",
     min: 13,
     max: 16,
     image: "/images/unit-penthouse.webp",
-    blurb: "أقرب طريق لعنوان في ماونتن فيو اكتوبر — دور أخير بروف خاص وإطلالة مفتوحة.",
-    points: ["دور أخير", "روف خاص", "إطلالة مفتوحة"],
+    blurb: "أقرب طريق لبيت بجاردن في ماونتن فيو اكتوبر — مساحات على أكتر من دور وحديقة خاصة وسط الخضرة.",
+    points: ["جاردن خاص", "أكتر من دور", "خصوصية عائلية"],
   },
   {
     key: "ivilla",
