@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { LeadForm } from "./lead-form";
-import { PRICING } from "@/lib/config";
+import { PRICING, fmtM } from "@/lib/config";
 
 type Opts = { title?: string; sub?: string; unit?: string; source: string; cta?: string };
 const Ctx = createContext<(o: Opts) => void>(() => {});
@@ -37,7 +37,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
       setOpts({
         source: "popup-auto",
         title: "قبل ما تمشي — استلم الأسعار كاملة",
-        sub: `أسعار تبدأ من ${(PRICING.startFrom / 1e6).toFixed(1)} مليون • مقدم ${PRICING.downPaymentPct}% • تقسيط ${PRICING.years} سنوات. سيب رقمك وهنبعتلك المتاح حالياً على واتساب.`,
+        sub: `أسعار تبدأ من ${fmtM(PRICING.startFrom / 1e6)} مليون • مقدم من ${PRICING.minDownPct}% • تقسيط حتى ${PRICING.maxYears} سنوات • خصم ${PRICING.discountPct}%. سيب رقمك وهنبعتلك المتاح حالياً على واتساب.`,
       });
       cleanup();
     };

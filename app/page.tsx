@@ -18,18 +18,18 @@ import { LeadModalProvider } from "@/components/lead-modal";
 import { Calculator } from "@/components/calculator";
 import { CallLink, LeadButton, Reveal, WaLink, WhatsAppIcon } from "@/components/actions";
 import { CookieConsent, Header, PrivacyButton, StickyActions, Wordmark } from "@/components/chrome";
-import { PRICING, SITE, UNITS } from "@/lib/config";
+import { PRICING, SITE, UNITS, fmtM } from "@/lib/config";
 
-const startM = (PRICING.startFrom / 1e6).toFixed(1);
+const startM = fmtM(PRICING.startFrom / 1e6);
 
 const FAQ = [
   {
     q: "كم تبدأ أسعار ماونتن فيو تشيل اوت بارك اكتوبر؟",
-    a: `تبدأ أسعار ماونتن فيو تشيل اوت بارك من ${startM} مليون جنيه. متوسط سعر البنتهاوس من 13 إلى 16 مليون، الآي فيلا من 20 إلى 24 مليون، والفيلا المستقلة من 45 إلى 50 مليون جنيه. الأسعار استرشادية وقابلة للتحديث من المطوّر.`,
+    a: `تبدأ أسعار ماونتن فيو تشيل اوت بارك من ${startM} مليون جنيه. ${UNITS.map((u) => `${u.name} ${u.bua} م² من ${fmtM(u.price8)} مليون`).join("، ")} (بنظام 8 سنوات بعد خصم 20%). الأسعار أسعار بداية وقابلة للتحديث من المطوّر.`,
   },
   {
     q: "ما هي أنظمة السداد في ماونتن فيو اكتوبر — تشيل اوت بارك؟",
-    a: `مقدم ${PRICING.downPaymentPct}% والباقي بالتقسيط على ${PRICING.years} سنوات. سجّل بياناتك وهنبعتلك خطة السداد التفصيلية لكل وحدة.`,
+    a: `نظامين: مقدم 3% وتقسيط على 10 سنوات، أو مقدم 10% وتقسيط على 8 سنوات مع خصم ${PRICING.discountPct}% على السعر. الاستلام بعد ${PRICING.deliveryYears} سنين. سجّل بياناتك وهنبعتلك خطة السداد التفصيلية لكل وحدة.`,
   },
   {
     q: "أين يقع كمبوند ماونتن فيو تشيل اوت بارك؟",
@@ -37,7 +37,7 @@ const FAQ = [
   },
   {
     q: "ما أنواع الوحدات المتاحة في تشيل اوت بارك اكتوبر؟",
-    a: "المتاح حالياً بنتهاوس، آي فيلا، وفيلات مستقلة. المساحات والنماذج المتاحة بتتغير حسب المرحلة — اطلبها من مستشار المبيعات.",
+    a: `المتاح حالياً: ${UNITS.map((u) => `${u.name} (${u.bua} م² — ${u.config})`).join("، ")}. المساحات الخارجية تقريبية وقابلة للتغيير — اطلب المتاح من مستشار المبيعات.`,
   },
   {
     q: "من هو مطوّر مشروع تشيل اوت بارك؟",
@@ -134,8 +134,8 @@ export default function Page() {
                 <span className="text-sky">تشيل اوت بارك</span>
               </h1>
               <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl">
-                بيتك وسط البحيرات والخُضرة على 216 فدان في قلب 6 اكتوبر — بنتهاوس، آي فيلا وفيلات
-                مستقلة.
+                بيتك وسط البحيرات والخُضرة على 216 فدان في قلب 6 اكتوبر — وان فيلا، تاون هاوس، جرين فيو
+                وتشيل اوت فيلا. استلام بعد {PRICING.deliveryYears} سنين.
               </p>
 
               <dl className="mt-7 grid max-w-xl grid-cols-3 rounded-xl [&>div+div]:border-s [&>div+div]:border-white/20 border border-white/20 bg-white/10 text-center backdrop-blur">
@@ -146,18 +146,21 @@ export default function Page() {
                   </dd>
                 </div>
                 <div className="px-2 py-4">
-                  <dt className="text-xs text-white/70">مقدم</dt>
+                  <dt className="text-xs text-white/70">مقدم من</dt>
                   <dd className="mt-1 font-display text-xl font-bold sm:text-2xl" dir="ltr">
-                    {PRICING.downPaymentPct}%
+                    {PRICING.minDownPct}%
                   </dd>
                 </div>
                 <div className="px-2 py-4">
-                  <dt className="text-xs text-white/70">تقسيط</dt>
+                  <dt className="text-xs text-white/70">تقسيط حتى</dt>
                   <dd className="mt-1 font-display text-xl font-bold sm:text-2xl">
-                    {PRICING.years} سنوات
+                    {PRICING.maxYears} سنوات
                   </dd>
                 </div>
               </dl>
+              <p className="mt-3 text-sm text-white/75">
+                أو مقدم 10% على 8 سنوات مع <strong className="text-sky">خصم {PRICING.discountPct}%</strong>
+              </p>
 
               <div className="mt-6 hidden items-center gap-3 lg:flex">
                 <WaLink className="flex items-center gap-2 rounded-lg bg-wa px-5 py-3.5 font-bold text-white transition hover:brightness-110">
@@ -229,21 +232,21 @@ export default function Page() {
                 أسعار ماونتن فيو تشيل اوت بارك
               </h2>
               <p className="mt-3 text-lg text-ink/70">
-                تبدأ من <span dir="ltr">{startM}</span> مليون جنيه بمقدم {PRICING.downPaymentPct}%
-                وتقسيط {PRICING.years} سنوات. اختار نوع الوحدة واطلب المتاح منها.
+                تبدأ من <span dir="ltr">{startM}</span> مليون جنيه — مقدم 3% على 10 سنوات، أو مقدم
+                10% على 8 سنوات بخصم {PRICING.discountPct}%. استلام بعد {PRICING.deliveryYears} سنين.
               </p>
             </Reveal>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {UNITS.map((u, i) => (
-                <Reveal key={u.key} delay={i * 100}>
+                <Reveal key={u.key} delay={(i % 3) * 100}>
                   <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-cream ring-1 ring-ink/5 transition hover:shadow-xl">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={u.image}
                         alt={`${u.name} في ماونتن فيو تشيل اوت بارك اكتوبر`}
                         fill
-                        sizes="(min-width:768px) 33vw, 100vw"
+                        sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
                         className="object-cover transition duration-700 group-hover:scale-105"
                       />
                       <span className="absolute right-3 top-3 rounded-md bg-navy/85 px-3 py-1 font-latin text-sm tracking-wider text-white">
@@ -253,26 +256,29 @@ export default function Page() {
                     <div className="flex flex-1 flex-col p-5">
                       <h3 className="text-2xl font-bold text-navy">{u.name}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-ink/70">{u.blurb}</p>
-                      <ul className="mt-3 flex flex-wrap gap-1.5">
-                        {u.points.map((p) => (
-                          <li key={p} className="rounded-full bg-sky px-3 py-1 text-xs font-medium text-navy">
-                            {p}
-                          </li>
+                      <dl className="mt-4 grid grid-cols-3 gap-2 text-center">
+                        {[
+                          ["المساحة", `${u.bua} م²`],
+                          ["الغرف", u.config],
+                          ["مساحات خارجية", `~${u.outdoor} م²`],
+                        ].map(([t, v]) => (
+                          <div key={t} className="rounded-lg bg-sky/70 px-1.5 py-2">
+                            <dt className="text-[11px] text-ink/55">{t}</dt>
+                            <dd className="mt-0.5 text-xs font-bold text-navy sm:text-sm">{v}</dd>
+                          </div>
                         ))}
-                      </ul>
-                      <div className="mt-5 border-t border-ink/10 pt-4">
-                        <p className="text-xs text-ink/55">متوسط السعر</p>
-                        <p className="font-display text-2xl font-bold text-green">
-                          <span dir="ltr">
-                            {u.min} – {u.max}
-                          </span>{" "}
-                          <span className="text-base">مليون ج.م</span>
-                        </p>
-                        <p className="mt-1 text-sm text-ink/65">
-                          مقدم يبدأ من{" "}
-                          <strong dir="ltr">{((u.min * PRICING.downPaymentPct) / 100).toFixed(1)}</strong>{" "}
-                          مليون
-                        </p>
+                      </dl>
+                      <div className="mt-auto pt-5">
+                        <div className="border-t border-ink/10 pt-4">
+                          <p className="text-xs text-ink/55">يبدأ من (8 سنوات • خصم {PRICING.discountPct}%)</p>
+                          <p className="font-display text-2xl font-bold text-green">
+                            <span dir="ltr">{fmtM(u.price8)}</span>{" "}
+                            <span className="text-base">مليون ج.م</span>
+                          </p>
+                          <p className="mt-1 text-sm text-ink/65">
+                            أو <strong dir="ltr">{fmtM(u.price10)}</strong> مليون بمقدم 3% على 10 سنوات
+                          </p>
+                        </div>
                       </div>
                       <LeadButton
                         source={`unit-card-${u.key}`}
@@ -304,7 +310,7 @@ export default function Page() {
               ))}
             </div>
             <p className="mt-6 text-center text-xs text-ink/50">
-              * الأسعار استرشادية ومتوسطة حسب آخر تحديث، وقابلة للتغيير من المطوّر دون إشعار مسبق.
+              * أسعار بداية حسب آخر تحديث من المطوّر، والمساحات الخارجية تقريبية وقابلة للتغيير دون إشعار مسبق.
               الصور توضيحية من برشور المشروع.
             </p>
           </div>
@@ -316,18 +322,18 @@ export default function Page() {
             <Reveal>
               <Eyebrow light>خطة السداد</Eyebrow>
               <h2 className="text-3xl font-bold leading-snug sm:text-4xl">
-                مقدم {PRICING.downPaymentPct}% وقسّط على {PRICING.years} سنوات في ماونتن فيو اكتوبر
+                مقدم من {PRICING.minDownPct}% وقسّط حتى {PRICING.maxYears} سنوات في ماونتن فيو اكتوبر
               </h2>
               <p className="mt-4 text-lg leading-loose text-white/75">
-                احسب المقدم والقسط التقريبي لوحدتك في تشيل اوت بارك قبل ما تكلّم حد، وبعدها اطلب
-                الخطة الفعلية.
+                نظامين سداد: مقدم 3% على 10 سنوات، أو مقدم 10% على 8 سنوات مع خصم {PRICING.discountPct}%
+                على السعر. احسب المقدم والقسط التقريبي لوحدتك وبعدها اطلب الخطة الفعلية.
               </p>
               <ol className="mt-8 space-y-4">
                 {[
                   ["سجّل بياناتك", "اسم ورقم موبايل بس."],
                   ["استلم المتاح والأسعار", "مستشار المبيعات يبعتلك الوحدات وخطط السداد على واتساب."],
                   ["اختار وحدتك", "معاينة الموقع ومقارنة النماذج."],
-                  [`تعاقد بمقدم ${PRICING.downPaymentPct}%`, "مباشرة مع ماونتن فيو."],
+                  [`تعاقد بمقدم من ${PRICING.minDownPct}%`, `مباشرة مع ماونتن فيو — والاستلام بعد ${PRICING.deliveryYears} سنين.`],
                 ].map(([t, d], i) => (
                   <li key={t} className="flex gap-4">
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue font-display font-bold">
@@ -613,8 +619,8 @@ export default function Page() {
                 احجز وحدتك في ماونتن فيو تشيل اوت بارك
               </h2>
               <p className="mt-4 text-lg text-white/80">
-                من <span dir="ltr">{startM}</span> مليون جنيه • مقدم {PRICING.downPaymentPct}% •
-                تقسيط {PRICING.years} سنوات
+                من <span dir="ltr">{startM}</span> مليون جنيه • مقدم من {PRICING.minDownPct}% •
+                تقسيط حتى {PRICING.maxYears} سنوات • خصم {PRICING.discountPct}%
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <WaLink className="flex items-center gap-2 rounded-lg bg-wa px-5 py-3.5 font-bold text-white">

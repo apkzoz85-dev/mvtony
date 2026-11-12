@@ -112,7 +112,7 @@ export function LeadForm({
                 type="button"
                 aria-pressed={on}
                 onClick={() => setUnit(u)}
-                className={`rounded-lg border px-3 py-2.5 text-sm font-semibold transition ${
+                className={`rounded-lg border px-2 py-2 text-[13px] font-semibold transition last:col-span-2 sm:text-sm ${
                   on
                     ? "border-green bg-green text-white"
                     : "border-ink/15 bg-white text-ink hover:border-green/60"
