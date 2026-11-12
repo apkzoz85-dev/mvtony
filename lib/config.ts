@@ -59,7 +59,6 @@ export const PLANS: { key: PlanKey; label: string; downPct: number; years: numbe
 ];
 
 export const PRICING = {
-<<<<<<< HEAD
   /** أقل سعر في الجدول (وان فيلا — نظام 8 سنوات) */
   startFrom: 13_400_000,
   minDownPct: 3,
@@ -69,14 +68,6 @@ export const PRICING = {
 };
 
 export type UnitKey = "onevilla" | "townhouse" | "greenviewC" | "greenviewB" | "chillout" | "grandchillout";
-=======
-  startFrom: 13_400_000,
-  downPaymentPct: 10,
-  years: 8,
-};
-
-export type UnitKey = "townhouse" | "penthouse" | "ivilla" | "villa";
->>>>>>> 7a698f2f989ffd99804fc16ddf628d16cadc7b12
 
 export const UNITS: {
   key: UnitKey;
@@ -91,7 +82,6 @@ export const UNITS: {
   blurb: string;
 }[] = [
   {
-<<<<<<< HEAD
     key: "onevilla",
     name: "وان فيلا",
     en: "One Villa",
@@ -100,23 +90,6 @@ export const UNITS: {
     outdoor: 120,
     price10: 16.75,
     price8: 13.4,
-=======
-    key: "townhouse",
-    name: "تاون هاوس",
-    en: "Townhouse",
-    min: 13,
-    max: 16,
-    image: "/images/unit-penthouse.webp",
-    blurb: "أقرب طريق لبيت بجاردن في ماونتن فيو اكتوبر — مساحات على أكتر من دور وحديقة خاصة وسط الخضرة.",
-    points: ["جاردن خاص", "أكتر من دور", "خصوصية عائلية"],
-  },
-  {
-    key: "ivilla",
-    name: "آي فيلا",
-    en: "iVilla",
-    min: 20,
-    max: 24,
->>>>>>> 7a698f2f989ffd99804fc16ddf628d16cadc7b12
     image: "/images/unit-ivilla.webp",
     blurb: "أقل نقطة دخول لفيلا في تشيل اوت بارك — 3 غرف ومساحات خارجية خاصة حوالي 120 م².",
   },
