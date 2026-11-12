@@ -52,7 +52,7 @@ export const isWeb3Ready = () =>
  *  الأسعار — استرشادية لحين التأكيد
  * ---------------------------------------------------------- */
 export const PRICING = {
-  startFrom: 11_700_000,
+  startFrom: 13_400_000,
   downPaymentPct: 10,
   years: 8,
 };
@@ -70,9 +70,9 @@ export const UNITS: {
   points: string[];
 }[] = [
   {
-    key: "penthouse",
-    name: "بنتهاوس",
-    en: "Penthouse",
+    key: "Townhouse",
+    name: "تاون هاوس",
+    en: "Townhouse",
     min: 13,
     max: 16,
     image: "/images/unit-penthouse.webp",
